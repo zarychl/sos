@@ -19,7 +19,19 @@ function getCar($id)
     }
     return $car;
 }
-
+function getCardLastLocation($id)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "SELECT * FROM `przejazdy` where idKarty = $id order by id desc limit 1;");
+    while ($row = mysqli_fetch_assoc($result)) {
+        if($row['przyjazdTime'] != 0)
+        {
+            $loc = $row['dokad'];
+        }
+        else $loc = $row['skad'];
+    }
+    return $loc;
+}
 function getStaff($id)
 {
     GLOBAL $conn;
@@ -134,6 +146,23 @@ function getKarta($id)
         $karta = $row;
     }
     return $karta;
+}
+
+function getAllCards()
+{
+    GLOBAL $conn;
+    $cards = array();
+    $query = '
+    SELECT k.zakonczony, k.id ,k.data, k.przychodnia, k.lekarz, c.nazwa, c.tablica, k.zaloga_id1, k.zaloga_id2 
+    FROM karty k 
+    INNER JOIN cars c ON c.id = k.car_id
+    ORDER BY k.id DESC
+    ';
+    $result = mysqli_query( $conn , $query);
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($cards,$row);
+    }
+    return $cards;
 }
 
 function finilizeCard($id)

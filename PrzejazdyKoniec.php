@@ -29,18 +29,12 @@ require_once("includes/sidebar.php");
 
 <div class="container-fluid">
 
-  <!-- Breadcrumbs-->
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item active">Karta</li>
-    <li class="breadcrumb-item active">Przejazdy</li>
-    <li class="breadcrumb-item active">Dodaj przyjazd</li>
-  </ol>
 <?php
 $time2 = strtotime($nieukonczony['wyjazdTime']);
 ?>
         <!-- Area Chart Example-->
         <div class="card mb-3">
-          <div class="card-header">
+          <div class="card-header bg-success text-white font-weight-bold">
             Dodaj przyjazd</div>
           <div class="card-body">
           <form method="post">

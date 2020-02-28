@@ -61,7 +61,7 @@ require_once("includes/sidebar.php");
 
         <!-- Area Chart Example-->
         <div class="card mb-3">
-          <div class="card-header">
+          <div class="card-header bg-success text-white font-weight-bold">
             Przejazdy na karcie (ID: <?php echo $_GET['idkarty']; ?>)
             <?php
             if($karta['zakonczony'] == 0)

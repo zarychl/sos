@@ -22,16 +22,11 @@ require_once("includes/sidebar.php");
 
         <div class="container-fluid">
 
-            <!-- Breadcrumbs-->
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active">Zlecenia</li>
-                <li class="breadcrumb-item active">Dodaj nowe</li>
-            </ol>
 
             <!-- Area Chart Example-->
             <div class="card mb-3">
-                <div class="card-header">
-                    Karta
+                <div class="card-header bg-success text-white font-weight-bold">
+                    Karta wyjazdu
                 </div>
                 <div class="card-body">
 
@@ -39,11 +34,11 @@ require_once("includes/sidebar.php");
                     <div class="row">
                         <div class=" col-sm-6">
                             <div class="form-group">
-                                <label >Data zlecenia</label>
+                                <label >Data:</label>
                                 <input type="date" class="form-control" name="dataZlecenia" value="<?php echo date("Y-m-d"); ?>" required>
                             </div>
                             <div class="form-group">
-                                <label >Samochód</label>
+                                <label >Samochód:</label>
                                 <select class="form-control" name="cars">
                                     <?php
                 $cars = getAllCars();
@@ -59,7 +54,7 @@ require_once("includes/sidebar.php");
 
                             </div>
                             <div class="form-group">
-                                <label >Załoga</label>
+                                <label >Załoga:</label>
                                 <select class="form-control" name="staff1">
                                     <?php
                 $staff = getAllStaff();
@@ -86,9 +81,9 @@ require_once("includes/sidebar.php");
 
                         <div class="d-inline col-sm-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Dysponent</label>
-                                    <input type="text" class="form-control" name="przychodnia" placeholder="Przychodnia" required>
-                                    <input type="text" class="form-control" name="lekarz" placeholder="Lekarz" required>
+                                    <label for="exampleInputEmail1">Dysponent:</label>
+                                    <input list="dysp" type="text" class="form-control" name="przychodnia" placeholder="Przychodnia">     
+                                    <input type="text" class="form-control" name="lekarz" placeholder="Lekarz">
                                 </div>
                         </div>
                         </div>

@@ -26,6 +26,11 @@ session_start();
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
 
-  <script src="/includes/script.js"></script>
+  <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+
+        <script src="/includes/script.js"></script>
 
 </head>
