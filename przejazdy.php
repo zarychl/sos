@@ -7,6 +7,8 @@ if(!isUserLoggedIn())//jeśli użytkownik nie jest zalogowany
 if(!isset($_GET['idkarty']))
     header("Location: karty.php");
 $karta = getKarta($_GET['idkarty']);
+if(empty($karta))
+  header("Location: karty.php");
 $car = getCar($karta['car_id']);
 $staff1 = getStaff($karta['zaloga_id1']);
 if($karta['zaloga_id2'] != -1)

@@ -26,7 +26,6 @@ require_once("includes/sidebar.php");
             <i class="fas fa-chart-area"></i>
             Area Chart Example</div>
           <div class="card-body">
-              hej
           </div>
           <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
         </div>

@@ -53,6 +53,7 @@ function hasCardUnfinishedPrzejazd($id)
 
 function getCarIdFromPrzejazd($id)
 {
+    GLOBAL $conn;
     $result = mysqli_query($conn, "SELECT k.car_id as id FROM karty k INNER JOIN przejazdy p on p.idKarty = k.id WHERE p.id = $id;");
     while ($row = mysqli_fetch_assoc($result)) {
         $carid = $row['id'];
