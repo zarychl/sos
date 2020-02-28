@@ -61,7 +61,18 @@ function getCarIdFromPrzejazd($id)
     return $carid;
 
 }
+function displayTimeDiff($time1, $time2)
+{
+    $roznica = $time1 - $time2;
+    $minutes = floor(($roznica % 3600) / 60);
+    $hours = floor($roznica / 3600);
 
+    $zero = "";
+    if($minutes < 10)
+        $zero = "0";
+
+    return $hours . ':' . $zero .$minutes;
+}
 function getCardUnfinishedPrzejazd($id)
 {
     GLOBAL $conn;

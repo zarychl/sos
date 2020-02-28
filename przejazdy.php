@@ -147,7 +147,7 @@ require_once("includes/sidebar.php");
     $przebieg1 = intval($przejazdy[$key]['przyjazdPrzebieg']);
     $przebieg2 = intval($przejazdy[$key]['wyjazdPrzebieg']);
     $przebieg_roznica = $przebieg1 - $przebieg2;
-    $roznica = $time1 - $time2;
+
     echo "<tr>";
     echo "<th scope='row'>$i</th>";// #
     echo "<td>". $przejazdy[$key]['skad']. " -> ". $przejazdy[$key]['dokad'] ."</td>";// skąd dokąd
@@ -158,7 +158,7 @@ require_once("includes/sidebar.php");
       echo "<td>". date("H:i", $time1) ."</td>";// Przyjazd godz
       echo "<td>". $przebieg1 ."</td>";// Przyjazd Stan licznika
       echo "<td>". $przebieg_roznica ."</td>";// Przebieg
-      echo "<td>". date("G:i", $roznica) ."</td>";// Czas
+      echo "<td>". displayTimeDiff($time1, $time2) ."</td>";// Czas
       echo "<td><a href='przejazdyEdit.php?id=$id'><i class='fas fa-pen'></i> Edycja</a></td>";// opcje
     }
     else
