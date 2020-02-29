@@ -155,8 +155,8 @@ require_once("includes/sidebar.php");
                   ';
                 else if($karta['zakonczony'] != 1 && hasCardUnfinishedPrzejazd($karta['id']))
                 {
-                  echo '<a class="btn btn-secondary" role="button" href="tankowanieDodaj.php?idkarty='. $_GET['idkarty'] .'">Dodaj tankowanie</a>&nbsp;';
-                  echo '<a class="btn btn-warning" role="button" href="przejazdyKoniec.php?idkarty='. $_GET['idkarty'] .'&id='. $nieukonczony['id'] .'">Dodaj przyjazd</a>';
+                  echo '<a class="btn btn-warning" role="button" href="przejazdyKoniec.php?idkarty='. $_GET['idkarty'] .'&id='. $nieukonczony['id'] .'">Dodaj przyjazd</a>&nbsp;';
+                  echo '<a class="btn btn-secondary" role="button" href="tankowanieDodaj.php?idkarty='. $_GET['idkarty'] .'"><i class="fas fa-gas-pump"></i> Dodaj tankowanie</a>';
                 }
                 ?>
                 </div>
@@ -183,8 +183,8 @@ require_once("includes/sidebar.php");
   $i = 1;
   foreach ($przejazdy as $key => $value)
   {
-    $time1 = strtotime($przejazdy[$key]['przyjazdTime']);
-    $time2 = strtotime($przejazdy[$key]['wyjazdTime']);
+    $time1 = explode(":" , $przejazdy[$key]['przyjazdTime']);
+    $time2 = explode(":" , $przejazdy[$key]['wyjazdTime']);
     $id = $przejazdy[$key]['id'];
     $przebieg1 = intval($przejazdy[$key]['przyjazdPrzebieg']);
     $przebieg2 = intval($przejazdy[$key]['wyjazdPrzebieg']);
@@ -193,14 +193,14 @@ require_once("includes/sidebar.php");
     echo "<tr>";
     echo "<th scope='row'>$i</th>";// #
     echo "<td>". $przejazdy[$key]['skad']. " -> ". $przejazdy[$key]['dokad'] ."</td>";// skąd dokąd
-    echo "<td>". date("H:i", $time2) ."</td>";// Wyjazd godz
+    echo "<td>". date("H:i", mktime($time2[0],$time2[1])) ."</td>";// Wyjazd godz
     echo "<td>". $przebieg2 ."</td>";// Wyjazd Stan licznika
     if($przebieg1 != 0)
     {
-      echo "<td>". date("H:i", $time1) ."</td>";// Przyjazd godz
+      echo "<td>". date("H:i", mktime($time1[0],$time1[1])) ."</td>";// Przyjazd godz
       echo "<td>". $przebieg1 ."</td>";// Przyjazd Stan licznika
       echo "<td>". $przebieg_roznica ."</td>";// Przebieg
-      echo "<td>". displayTimeDiff($time1, $time2) ."</td>";// Czas
+      echo "<td>". displayTimeDiff($time2[0],$time2[1],$time1[0],$time1[1]) ."</td>";// Czas
       echo "<td><a href='przejazdyEdit.php?id=$id'><i class='fas fa-pen'></i> Edycja</a></td>";// opcje
     }
     else

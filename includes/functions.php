@@ -105,17 +105,21 @@ function getCarIdFromPrzejazd($id)
     return $carid;
 
 }
-function displayTimeDiff($time1, $time2)
+function displayTimeDiff($time1H, $time1M, $time2H, $time2M)
 {
-    $roznica = $time1 - $time2;
-    $minutes = floor(($roznica % 3600) / 60);
-    $hours = floor($roznica / 3600);
+    $time1 = mktime($time1H,$time1M);//wyjazd
+    $time2 = mktime($time2H,$time2M);//przyjazd
 
-    $zero = "";
-    if($minutes < 10)
-        $zero = "0";
-
-    return $hours . ':' . $zero .$minutes;
+    if($time1 > $time2)// przejście przeez północ
+    {
+        $midnight = mktime(24,00);
+        $time_1_m = $midnight - $time1;
+        return date("H:i",$time2+$time_1_m);
+    }
+    else
+    {
+        return date("H:i",$time2-$time1-3600);
+    }
 }
 function getCardUnfinishedPrzejazd($id)
 {
