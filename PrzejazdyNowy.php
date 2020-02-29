@@ -39,11 +39,11 @@ require_once("includes/sidebar.php");
           <form method="post">
           <div class="form-group">
                 <label>Z</label>
-                <input value="<?php echo getCardLastLocation($_GET['idkarty']); ?>" name="skad" type="text" class="form-control" required>
+                <input id="skad" value="<?php echo getCardLastLocation($_GET['idkarty']); ?>" name="skad" type="text" class="form-control" required>
             </div>
             <div class="form-group">
                 <label>Do</label>
-                <input name="dokad" type="text" class="form-control" required>
+                <input id="dokad" name="dokad" type="text" class="form-control" required>
             </div>
             <div class="form-group">
                 <label>Wyjazd godz.</label>

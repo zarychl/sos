@@ -39,7 +39,7 @@ require_once("includes/sidebar.php");
                             </div>
                             <div class="form-group">
                                 <label >Samochód:</label>
-                                <select class="form-control" name="cars">
+                                <select class="form-control" name="cars" required>
                                     <?php
                 $cars = getAllCars();
                 foreach ($cars as $key => $value)
@@ -81,9 +81,22 @@ require_once("includes/sidebar.php");
 
                         <div class="d-inline col-sm-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Dysponent:</label>
-                                    <input list="dysp" type="text" class="form-control" name="przychodnia" placeholder="Przychodnia">     
-                                    <input type="text" class="form-control" name="lekarz" placeholder="Lekarz">
+                                    
+                                    <label for="exampleInputEmail1">Dysponent:</label><br>
+                                    <button style="margin-bottom:5px;" type="button" class="btn btn-secondary fill-dysponent-poz" data-name="POZ">POZ</button>
+                                    <button style="margin-bottom:5px;" type="button" class="btn btn-secondary fill-dysponent" data-name="Fras">Fras</button>
+                                    <button style="margin-bottom:5px;" type="button" class="btn btn-secondary fill-dysponent" data-name="Inter">Inter</button>
+                                    <button style="margin-bottom:5px;" type="button" class="btn btn-secondary diff-dysponent">Inne</button>
+                                    <input id="przychodnia" list="dysp" type="text" class="form-control" name="przychodnia" placeholder="Przychodnia">
+                                    <select name="przychodnia" class="form-control" id="przychodnia-poz" style="display:none;" disabled>
+                                        <option disabled selected value>--- WYBIERZ POZ ---</option>
+                                        <option>POZ1</option>
+                                        <option>POZ2</option>
+                                        <option>POZ3</option>
+                                        <option>POZ4</option>
+                                        <option>POZ5</option>
+                                    </select>  
+                                    <input id="lekarz" type="text" class="form-control" name="lekarz" placeholder="Lekarz">
                                 </div>
                         </div>
                         </div>

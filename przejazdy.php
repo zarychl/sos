@@ -62,12 +62,12 @@ require_once("includes/sidebar.php");
         <!-- Area Chart Example-->
         <div class="card mb-3">
           <div class="card-header bg-success text-white font-weight-bold">
-            Przejazdy na karcie (ID: <?php echo $_GET['idkarty']; ?>)
+            Karta wyjazdu (ID: <?php echo $_GET['idkarty']; ?>)
             <?php
             if($karta['zakonczony'] == 0)
-              echo '<span class="badge badge-warning">Aktywny</span>';
+              echo '<span class="badge badge-warning">W trakcie</span>';
             else
-              echo '<span class="badge badge-success">Zakończony</span>';
+              echo '<span class="badge badge-success">Zakończona</span>';
             ?>
             </div>
 
@@ -103,6 +103,45 @@ require_once("includes/sidebar.php");
             </tbody>
         </table>
         </div>
+
+        <div class="col">
+        <?php
+        if(hasCardFueling($karta['id']))
+        {
+          $f = getCardFueling($karta['id']);
+          echo '
+          <table class="align-middle table table-striped table-sm">
+          <thead>
+            <tr>
+              <th class="bg-success text-white" colspan="4">TANKOWANIE</th>
+            </tr>
+            <tr>
+              <th>#</th>
+              <th>Ilość paliwa<br>[litry]</th>
+              <th>Koszt<br>[złotych]</th>
+              <th>Nr faktury</th>
+            </tr>
+          </thead>
+          <tbody>
+          ';
+          $i = 1;
+          foreach($f as $key => $value)
+          {
+            echo '<tr><td>'. $i .'</td>';
+            echo '<td>'. $f[$key]['litry'] .'</td>';
+            echo '<td>'. $f[$key]['koszt'] .'</td>';
+            echo '<td>'. $f[$key]['faktura'] .'</td></tr>';
+            $i++;
+          }
+          echo '
+          </tbody>
+        </table>
+          ';
+        }
+        ?>
+        </div>
+
+
         </div>
               <hr>
 
@@ -115,7 +154,10 @@ require_once("includes/sidebar.php");
                   <button class="btn btn-danger" role="button" onclick="closeCardConf('. $karta['id'] .')") " >Zakończ kartę</button>
                   ';
                 else if($karta['zakonczony'] != 1 && hasCardUnfinishedPrzejazd($karta['id']))
+                {
+                  echo '<a class="btn btn-secondary" role="button" href="tankowanieDodaj.php?idkarty='. $_GET['idkarty'] .'">Dodaj tankowanie</a>&nbsp;';
                   echo '<a class="btn btn-warning" role="button" href="przejazdyKoniec.php?idkarty='. $_GET['idkarty'] .'&id='. $nieukonczony['id'] .'">Dodaj przyjazd</a>';
+                }
                 ?>
                 </div>
               </div>

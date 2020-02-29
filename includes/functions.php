@@ -23,6 +23,10 @@ function getCardLastLocation($id)
 {
     GLOBAL $conn;
     $result = mysqli_query( $conn , "SELECT * FROM `przejazdy` where idKarty = $id order by id desc limit 1;");
+    if(mysqli_num_rows($result) == 0)
+    {
+        return "-";
+    }
     while ($row = mysqli_fetch_assoc($result)) {
         if($row['przyjazdTime'] != 0)
         {
@@ -40,6 +44,34 @@ function getStaff($id)
         $staff = $row;
     }
     return $staff;
+}
+
+function getCardFueling($cardid)
+{
+    GLOBAL $conn;
+    $fueling = array();
+    $result = mysqli_query( $conn , "SELECT * from tankowania where idKarty = $cardid;");
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($fueling,$row);
+    }
+    return $fueling;
+}
+function hasCardFueling($cardid)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "SELECT * from tankowania where idKarty = $cardid;");
+    if(mysqli_num_rows($result) > 0)
+        return 1;
+    else
+        return 0;
+}
+function getUserAdminLvl($id)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "SELECT admin_lvl from users WHERE id = $id;");
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row['admin_lvl'];
+    }
 }
 
 function getPrzejazdyByKarta($karta)
@@ -173,6 +205,13 @@ function finilizeCard($id)
     $card =  getKarta($id);
 
     mysqli_query( $conn , "UPDATE `cars` SET `czyWBazie` = '1' WHERE `cars`.`id` = ". $card['car_id'] .";");
+    return 1;
+}
+
+function addFueling($cardid, $fuel, $money, $fv)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "INSERT INTO `tankowania` (`idKarty`, `litry`, `koszt`, `faktura`) VALUES ('$cardid', '$fuel', '$money', '$fv');");
     return 1;
 }
 

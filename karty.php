@@ -17,21 +17,27 @@ require_once("includes/sidebar.php");
           <div class="card-header bg-success text-white font-weight-bold">
             Zlecenia</div>
           <div class="card-body">
-            <table style="cursor:pointer;" class="table table-striped table-hover">
-                <tr>
+            <table id="dataTable" style="cursor:pointer;" class="table table-striped table-hover">
                 <thead>
-                    <th scope="col">#</th><th scope="col">Data</th><th scope="col">Dysponent</th><th scope="col">Samochód</th><th scope="col">Załoga</th><th scope="col">Ostatnia lokalizacja</th>
+                  <tr>
+                    <th>#</th>
+                    <th>Data</th>
+                    <th>Dysponent</th>
+                    <th>Samochód</th>
+                    <th>Załoga</th>
+                    <th>Ostatnia lokalizacja</th>
+                  </tr>
                 </thead>
-                </tr>
+                <tbody>
                 <?php
                     $cards = getAllCards();
                     $i = 1;
                     foreach ($cards as $key => $value)
                     {
                         if($cards[$key]['zakonczony'])
-                            $status = '<span class="badge badge-success">Zakończony</span>';
+                            $status = '<span class="badge badge-success">Zakończone</span>';
                         else
-                            $status = '<span class="badge badge-warning">Aktywny</span>';
+                            $status = '<span class="badge badge-warning">W trakcie</span>';
                         $staff1 = getStaff($cards[$key]['zaloga_id1']);
                         if($cards[$key]['zaloga_id2'] != -1)
                             $staff2 = getStaff($cards[$key]['zaloga_id2']);
@@ -49,6 +55,7 @@ require_once("includes/sidebar.php");
                         $i++;
                     }
                 ?>
+                </tbody>
             </table>
           </div>
         </div>
