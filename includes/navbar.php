@@ -21,7 +21,7 @@
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
           <a class="dropdown-item" href="#">Ustawienia</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Wyloguj</a>
+          <a class="dropdown-item" href="logout.php" >Wyloguj</a>
         </div>
       </li>
     </ul>

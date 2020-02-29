@@ -60,7 +60,8 @@ require_once("includes/sidebar.php");
                 $staff = getAllStaff();
                 foreach ($staff as $key => $value)
                 {
-                    echo "<option value='". $cars[$key]['id'] ."'>". $staff[$key]['imie']. " ".$staff[$key]['nazwisko']. "</option>";
+                    if($staff[$key]['ratownik'] == 1)
+                        echo "<option value='". $staff[$key]['id'] ."'>". $staff[$key]['imie']. " ".$staff[$key]['nazwisko']. "</option>";
                 }
                 ?>
                                 </select>
@@ -70,7 +71,8 @@ require_once("includes/sidebar.php");
                 $staff = getAllStaff();
                 foreach ($staff as $key => $value)
                 {
-                    echo "<option value='". $staff[$key]['id'] ."'>". $staff[$key]['imie']. " ".$staff[$key]['nazwisko']. "</option>";
+                    if($staff[$key]['ratownik'] == 1)
+                        echo "<option value='". $staff[$key]['id'] ."'>". $staff[$key]['imie']. " ".$staff[$key]['nazwisko']. "</option>";
                 }
                 ?>
                                 </select>

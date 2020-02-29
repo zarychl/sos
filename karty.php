@@ -17,6 +17,7 @@ require_once("includes/sidebar.php");
           <div class="card-header bg-success text-white font-weight-bold">
             Zlecenia</div>
           <div class="card-body">
+
             <table id="dataTable" style="cursor:pointer;" class="table table-striped table-hover">
                 <thead>
                   <tr>

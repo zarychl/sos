@@ -131,6 +131,51 @@ function getCardUnfinishedPrzejazd($id)
     return $przejazd;
 }
 
+function hadCardDysponent($id)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "SELECT id FROM `karty` WHERE `id` = $id AND (`przychodnia` = '' OR `lekarz` = '')");
+    while ($row = mysqli_fetch_assoc($result)) {
+        return mysqli_num_rows($result);
+    }
+}
+
+function updateCardDysponent($id, $p, $l)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "UPDATE `karty` SET `przychodnia` = '$p', `lekarz` = '$l'");
+    return 1;
+}
+
+function getPacjentByKarta($id)
+{
+    GLOBAL $conn;
+    $pacjenty = array();
+    $result = mysqli_query( $conn , "SELECT DISTINCT pacjent FROM przejazdy where pacjent != '' AND `idKarty` = $id;");
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($pacjenty,$row);
+    }
+    return $pacjenty;
+}
+function getKartaLastPacjent($id)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "SELECT `pacjent` FROM `przejazdy` WHERE idKarty = 18 ORDER BY id desc LIMIT 1;");
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row['pacjent'];
+    }
+
+}
+
+function hadKartaPacjent($id)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "SELECT `pacjent` FROM `przejazdy` WHERE idKarty = 18 ORDER BY id desc LIMIT 1;");
+    while ($row = mysqli_fetch_assoc($result)) {
+        return mysqli_num_rows($result);
+    }
+}
+
 function finishPrzejazd($id, $time, $mileage)
 {
     GLOBAL $conn;
@@ -141,10 +186,13 @@ function finishPrzejazd($id, $time, $mileage)
     return 1;
 }
 
-function initPrzejazd($id,$skad,$dokad, $time, $mileage)
+function initPrzejazd($id,$skad,$dokad, $time, $mileage, $pacjent = 0)
 {
     GLOBAL $conn;
-    $result = mysqli_query( $conn , "INSERT INTO `przejazdy` (`idKarty`, `skad`, `dokad`, `wyjazdTime`, `WyjazdPrzebieg`) VALUES ('$id','$skad','$dokad','$time','$mileage')");
+    if(!$pacjent)
+        $result = mysqli_query( $conn , "INSERT INTO `przejazdy` (`idKarty`, `skad`, `dokad`, `wyjazdTime`, `WyjazdPrzebieg`) VALUES ('$id','$skad','$dokad','$time','$mileage')");
+    else
+        $result = mysqli_query( $conn , "INSERT INTO `przejazdy` (`idKarty`, `skad`, `dokad`, `wyjazdTime`, `WyjazdPrzebieg`, `pacjent`) VALUES ('$id','$skad','$dokad','$time','$mileage', '$pacjent')");
 
     return 1;
 }
@@ -153,7 +201,7 @@ function getAllStaff()
 {   
     GLOBAL $conn;
     $staff = array();
-    $result = mysqli_query( $conn , "SELECT `id`,`imie`,`nazwisko` from users;");
+    $result = mysqli_query( $conn , "SELECT `id`,`imie`,`nazwisko`,`ratownik` from users;");
     while ($row = mysqli_fetch_assoc($result)) {
         array_push($staff,$row);
     }

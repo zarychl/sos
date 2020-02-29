@@ -97,11 +97,48 @@ require_once("includes/sidebar.php");
                 <tr>
                 <th scope="row">Dysponent:</th>
                 <td><?php
-                echo $karta['przychodnia']. ", ". $karta['lekarz'] ; 
+                echo $karta['przychodnia']. ", ". $karta['lekarz'] ;
+                if(hadCardDysponent($karta['id']))
+                {
+                  echo '<a class="float-right" href="editDysponent.php?idkarty='. $karta['id'] .'"><i class="fas fa-plus-circle    "></i> Dodaj</button>';
+                } 
                 ?></td>
                 </tr>
             </tbody>
         </table>
+        </div>
+
+        <div class="col">
+        <?php
+        if(hadKartaPacjent($karta['id']))
+        {
+          $p = getPacjentByKarta($karta['id']);
+          echo '
+          <table class="align-middle table table-striped table-sm">
+          <thead>
+            <tr>
+              <th class="bg-success text-white" colspan="4">PACJENT</th>
+            </tr>
+            <tr>
+              <th>#</th>
+              <th>Imię i Nazwisko</th>
+            </tr>
+          </thead>
+          <tbody>
+          ';
+          $i = 1;
+          foreach($p as $key => $value)
+          {
+            echo '<tr><td>'. $i .'</td>';
+            echo '<td>'. $p[$key]['pacjent'] .'</td>';
+            $i++;
+          }
+          echo '
+          </tbody>
+        </table>
+          ';
+        }
+        ?>
         </div>
 
         <div class="col">
@@ -175,6 +212,7 @@ require_once("includes/sidebar.php");
       <th scope="col">Przyjazd<br>Stan licznika</th>
       <th scope="col">Przebieg<br>km</th>
       <th scope="col">Czas</th>
+      <th scope="col">Pacjent</th>
       <th scope="col">Opcje</th>
     </tr>
   </thead>
@@ -201,6 +239,7 @@ require_once("includes/sidebar.php");
       echo "<td>". $przebieg1 ."</td>";// Przyjazd Stan licznika
       echo "<td>". $przebieg_roznica ."</td>";// Przebieg
       echo "<td>". displayTimeDiff($time2[0],$time2[1],$time1[0],$time1[1]) ."</td>";// Czas
+      echo "<td>". $przejazdy[$key]['pacjent'] ."</td>";// Czas
       echo "<td><a href='przejazdyEdit.php?id=$id'><i class='fas fa-pen'></i> Edycja</a></td>";// opcje
     }
     else

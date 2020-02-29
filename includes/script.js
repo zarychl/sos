@@ -45,6 +45,21 @@ $(document).ready(function($) {
         $('#przychodnia-poz').attr('disabled', 'disabled');
         $('#przychodnia-poz').hide();
     });
+    if($('#pacjentCheck').prop("checked") == true){
+        $('#pacjentName').show();
+        $('#pacjentName').removeAttr('disabled');
+    }
+    $('#pacjentCheck').click(function(){
+        if($(this).prop("checked") == true){
+            $('#pacjentName').show();
+            $('#pacjentName').removeAttr('disabled');
+        }
+
+        else if($(this).prop("checked") == false){
+            $('#pacjentName').hide();
+            $('#pacjentName').attr('disabled','disabled');
+        }
+    });
 
     $('#skad, #dokad').keyup(function(evt){
 
