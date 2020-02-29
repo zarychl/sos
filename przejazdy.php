@@ -100,8 +100,10 @@ require_once("includes/sidebar.php");
                 echo $karta['przychodnia']. ", ". $karta['lekarz'] ;
                 if(hadCardDysponent($karta['id']))
                 {
-                  echo '<a class="float-right" href="editDysponent.php?idkarty='. $karta['id'] .'"><i class="fas fa-plus-circle    "></i> Dodaj</button>';
-                } 
+                  echo '<a role="button" class="btn btn-success float-right" href="editDysponent.php?idkarty='. $karta['id'] .'"><i class="fas fa-plus-circle    "></i> Dodaj</button>';
+                }
+                else
+                  echo '<a role="button" class="btn btn-success float-right" href="editDysponent.php?idkarty='. $karta['id'] .'"><i class="fas fa-pen    "></i> Edytuj</button>';
                 ?></td>
                 </tr>
             </tbody>
@@ -248,6 +250,7 @@ require_once("includes/sidebar.php");
       echo "<td><span class='badge badge-warning'>W trasie</span></td>";
       echo "<td><span class='badge badge-warning'>W trasie</span></td>";// Przebieg
       echo "<td><span class='badge badge-warning'>W trasie</span></td>";// Czas
+      echo "<td>". $przejazdy[$key]['pacjent'] ."</td>";// Czas
       echo "<td><span class='badge badge-warning'>W trasie</span></td>";// Czas
     }
     echo "</tr>";

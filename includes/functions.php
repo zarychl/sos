@@ -41,9 +41,8 @@ function getStaff($id)
     GLOBAL $conn;
     $result = mysqli_query( $conn , "SELECT * from users WHERE id = $id;");
     while ($row = mysqli_fetch_assoc($result)) {
-        $staff = $row;
+        return $row;
     }
-    return $staff;
 }
 
 function getCardFueling($cardid)
@@ -160,7 +159,7 @@ function getPacjentByKarta($id)
 function getKartaLastPacjent($id)
 {
     GLOBAL $conn;
-    $result = mysqli_query( $conn , "SELECT `pacjent` FROM `przejazdy` WHERE idKarty = 18 ORDER BY id desc LIMIT 1;");
+    $result = mysqli_query( $conn , "SELECT `pacjent` FROM `przejazdy` WHERE idKarty = $id ORDER BY id desc LIMIT 1;");
     while ($row = mysqli_fetch_assoc($result)) {
         return $row['pacjent'];
     }
@@ -170,7 +169,7 @@ function getKartaLastPacjent($id)
 function hadKartaPacjent($id)
 {
     GLOBAL $conn;
-    $result = mysqli_query( $conn , "SELECT `pacjent` FROM `przejazdy` WHERE idKarty = 18 ORDER BY id desc LIMIT 1;");
+    $result = mysqli_query( $conn , "SELECT `pacjent` FROM `przejazdy` WHERE idKarty = $id ORDER BY id desc LIMIT 1;");
     while ($row = mysqli_fetch_assoc($result)) {
         return mysqli_num_rows($result);
     }

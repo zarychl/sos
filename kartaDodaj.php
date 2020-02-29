@@ -67,6 +67,7 @@ require_once("includes/sidebar.php");
                                 </select>
                                 <select class="form-control" name="staff2">
                                     <option disabled selected value>--- WYBIERZ ---</option>
+                                    <option>-</option>
                                     <?php
                 $staff = getAllStaff();
                 foreach ($staff as $key => $value)

@@ -39,7 +39,7 @@ require_once("includes/sidebar.php");
                 <label>Lekarz</label>
                 <input value="<?php echo $karta['lekarz']; ?>" name="lekarz" type="text"class="form-control">
             </div>
-            <button type="submit" class="btn btn-primary">Edytuj</button>
+            <button type="submit" class="btn btn-success">Zatwierdź</button>
             </form>
           </div>
         </div>
