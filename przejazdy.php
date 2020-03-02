@@ -197,6 +197,10 @@ require_once("includes/sidebar.php");
                   echo '<a class="btn btn-warning" role="button" href="przejazdyKoniec.php?idkarty='. $_GET['idkarty'] .'&id='. $nieukonczony['id'] .'">Dodaj przyjazd</a>&nbsp;';
                   echo '<a class="btn btn-secondary" role="button" href="tankowanieDodaj.php?idkarty='. $_GET['idkarty'] .'"><i class="fas fa-gas-pump"></i> Dodaj tankowanie</a>';
                 }
+                else if($karta['zakonczony'])
+                {
+                  echo '<a class="btn btn-primary" role="button" href="printKarta.php?idkarty='. $_GET['idkarty'].'"><i class="fas fa-print"></i> Drukuj kartę</a>&nbsp;';
+                }
                 ?>
                 </div>
               </div>
@@ -251,7 +255,7 @@ require_once("includes/sidebar.php");
       echo "<td><span class='badge badge-warning'>W trasie</span></td>";// Przebieg
       echo "<td><span class='badge badge-warning'>W trasie</span></td>";// Czas
       echo "<td>". $przejazdy[$key]['pacjent'] ."</td>";// Czas
-      echo "<td><span class='badge badge-warning'>W trasie</span></td>";// Czas
+      echo "<td><a href='przejazdyEdit.php?id=$id'><i class='fas fa-pen'></i> Edycja</a></td>";// Czas
     }
     echo "</tr>";
     $i++;

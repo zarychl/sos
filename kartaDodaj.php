@@ -87,17 +87,19 @@ require_once("includes/sidebar.php");
                                     
                                     <label for="exampleInputEmail1">Dysponent:</label><br>
                                     <button style="margin-bottom:5px;" type="button" class="btn btn-secondary fill-dysponent-poz" data-name="POZ">POZ</button>
-                                    <button style="margin-bottom:5px;" type="button" class="btn btn-secondary fill-dysponent" data-name="Fras">Fras</button>
-                                    <button style="margin-bottom:5px;" type="button" class="btn btn-secondary fill-dysponent" data-name="Inter">Inter</button>
+                                    <button style="margin-bottom:5px;" type="button" class="btn btn-secondary fill-dysponent" data-name="Frasenius">Frasenius</button>
+                                    <button style="margin-bottom:5px;" type="button" class="btn btn-secondary fill-dysponent" data-name="Intercard">Intercard</button>
                                     <button style="margin-bottom:5px;" type="button" class="btn btn-secondary diff-dysponent">Inne</button>
                                     <input id="przychodnia" list="dysp" type="text" class="form-control" name="przychodnia" placeholder="Przychodnia">
                                     <select name="przychodnia" class="form-control" id="przychodnia-poz" style="display:none;" disabled>
                                         <option disabled selected value>--- WYBIERZ POZ ---</option>
-                                        <option>POZ1</option>
-                                        <option>POZ2</option>
-                                        <option>POZ3</option>
-                                        <option>POZ4</option>
-                                        <option>POZ5</option>
+                                        <option>POLIKLINIKA Krosno</option>
+                                        <option>MEDMAR Haczów</option>
+                                        <option>MEDMAR Malinówka</option>
+                                        <option>SPG ZOZ KROŚCIENKO WYŻNE</option>
+                                        <option>Such-Med BESKO</option>
+                                        <option>SPG ZOZ NOWY ŻMIGRÓD</option>
+                                        <option>Ośrodek Zdrowia NIENASZÓW</option>
                                     </select>  
                                     <input id="lekarz" type="text" class="form-control" name="lekarz" placeholder="Lekarz">
                                 </div>

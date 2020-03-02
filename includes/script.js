@@ -6,14 +6,6 @@ function closeCardConf(cardid)
     }
 }
 
-function ucfirst(str,force){
-    str=force ? str.toLowerCase() : str;
-    return str.replace(/(\b)([a-zA-Z])/,
-             function(firstLetter){
-                return   firstLetter.toUpperCase();
-             });
-}
-
 $(document).ready(function($) {
     $(".clickable-row").click(function() {
         window.document.location = $(this).data("href");
@@ -62,15 +54,8 @@ $(document).ready(function($) {
     });
 
     $('#skad, #dokad').keyup(function(evt){
-
-        // force: true to lower case all letter except first
-        var cp_value= ucfirst($(this).val(),true) ;
-  
-        // to capitalize all words  
-        //var cp_value= ucwords($(this).val(),true) ;
-  
-  
-        $(this).val(cp_value);
+        var txt = $(this).val();
+        $(this).val(txt.replace(/^(.)|\s(.)/g, function($1){ return $1.toUpperCase( ); }));
   
      });
     

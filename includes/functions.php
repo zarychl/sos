@@ -175,6 +175,49 @@ function hadKartaPacjent($id)
     }
 }
 
+function getTrasa($id)
+{
+    GLOBAL $conn;
+    $punkty = array();
+    $result = mysqli_query( $conn , "SELECT * FROM `przejazdy` WHERE idKarty = $id;");
+    $i = 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        if($i==0)
+        {
+            array_push($punkty,$row['skad']);
+            array_push($punkty,$row['dokad']);
+            $i++;
+            continue;
+        }
+        $i++;
+        array_push($punkty,$row['dokad']);
+    }
+    return $punkty;
+}
+function firstPrzejazdOnCard($id)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "SELECT * FROM `przejazdy` WHERE idKarty = $id ORDER BY id LIMIT 1 ");
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row;
+    }
+}
+function getPrzejazd($id)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "SELECT * FROM `przejazdy` WHERE id = $id;");
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row;
+    }
+}
+function lastPrzejazdOnCard($id)
+{
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , "SELECT * FROM `przejazdy` WHERE idKarty = $id ORDER BY id desc LIMIT 1 ");
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row;
+    }
+}
 function finishPrzejazd($id, $time, $mileage)
 {
     GLOBAL $conn;
