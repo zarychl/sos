@@ -15,6 +15,8 @@ if($karta['zaloga_id2'] != -1)
   $staff2 = getStaff($karta['zaloga_id2']);
 $przejazdy = getPrzejazdyByKarta($_GET['idkarty']);
 
+$idkarty = $_GET['idkarty'];
+
 if(hasCardUnfinishedPrzejazd($_GET['idkarty']))
 {
   $nieukonczony = getCardUnfinishedPrzejazd($_GET['idkarty']);
@@ -246,7 +248,7 @@ require_once("includes/sidebar.php");
       echo "<td>". $przebieg_roznica ."</td>";// Przebieg
       echo "<td>". displayTimeDiff($time2[0],$time2[1],$time1[0],$time1[1]) ."</td>";// Czas
       echo "<td>". $przejazdy[$key]['pacjent'] ."</td>";// Czas
-      echo "<td><a href='przejazdyEdit.php?id=$id'><i class='fas fa-pen'></i> Edycja</a></td>";// opcje
+      echo "<td><a href='przejazdyEdit.php?id=$id&idKarty=$idkarty'><i class='fas fa-pen'></i> Edycja</a></td>";// opcje
     }
     else
     {
@@ -255,7 +257,7 @@ require_once("includes/sidebar.php");
       echo "<td><span class='badge badge-warning'>W trasie</span></td>";// Przebieg
       echo "<td><span class='badge badge-warning'>W trasie</span></td>";// Czas
       echo "<td>". $przejazdy[$key]['pacjent'] ."</td>";// Czas
-      echo "<td><a href='przejazdyEdit.php?id=$id'><i class='fas fa-pen'></i> Edycja</a></td>";// Czas
+      echo "<td><a href='przejazdyEdit.php?id=$id&idKarty=$idkarty'><i class='fas fa-pen'></i> Edycja</a></td>";// Czas
     }
     echo "</tr>";
     $i++;

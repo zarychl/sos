@@ -6,20 +6,28 @@ if(!isUserLoggedIn())//jeśli użytkownik nie jest zalogowany
 
 if(isset($_POST['wyjazdGodz']))
 {
+    
     $time = $_POST['wyjazdGodz'];
     $mile = $_POST['wyjazdPrzebieg'];
     $skad = $_POST['skad'];
     $dokad = $_POST['dokad'];
+    $time2 = $_POST['przyjazdGodz'];
+    $mile2 = $_POST['przyjazdPrzebieg'];
+    $pacjent = "";
     if(@$_POST['pacjentCheck'] == 1)
     {
       $pacjent = $_POST['pacjentName'];
-      initPrzejazd($_GET['idkarty'], $skad, $dokad, $time, $mile, $pacjent);
+    }
+    if(isset($_POST['przyjazdGodz']))
+    {
+      editPrzejazd($_POST['idPrzejazd'], $skad, $dokad, $time, $time2, $mile, $mile2, $pacjent);
     }
     else
-      initPrzejazd($_GET['idkarty'], $skad, $dokad, $time, $mile);
-    $_SESSION["lastInitSuccess"] = 1;
+    {
+      editPrzejazd($_POST['idPrzejazd'], $skad, $dokad, $time, "", $mile, "", $pacjent);
+    }
 
-    header("Location: przejazdy.php?idkarty=". $_GET['idkarty']);
+    header("Location: przejazdy.php?idkarty=". $_POST['idKarty']);
 }
 
 if(!isset($_GET['id']))
@@ -28,7 +36,12 @@ if(!isset($_GET['id']))
 }
 
 $p = getPrzejazd($_GET['id']);
-$hasPacjent = hadKartaPacjent($p['idKarty']);
+if($p['pacjent'] != "")
+{
+  $hasPacjent = 1;
+}
+else $hasPacjent = 0;
+
 $stage = 0;
 if($p['przyjazdPrzebieg'])
 {
@@ -49,6 +62,8 @@ require_once("includes/sidebar.php");
             Edytuj przejazd</div>
           <div class="card-body">
           <form method="post">
+          <input style="display:none;" name="idPrzejazd" value="<?php echo $_GET['id']; ?>" type="number" readonly>
+          <input style="display:none;" name="idKarty" value="<?php echo $_GET['idKarty']; ?>" type="number" readonly>
           <div class="row">
             <div class="col">
                 <div class="form-group">

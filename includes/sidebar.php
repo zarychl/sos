@@ -15,6 +15,10 @@
     <i class="fas fa-fw fa-clipboard"></i>
       <span>Zlecenia</span>
     </a>
+    <a class="nav-link" href="/terminarz.php">
+    <i class="fas fa-fw fa-calendar    "></i>
+      <span>Terminarz</span>
+    </a>
   </li>
 
 </ul>

@@ -202,6 +202,23 @@ function firstPrzejazdOnCard($id)
         return $row;
     }
 }
+function editPrzejazd($id,$skad,$dokad,$wyjazdTime,$przyjazdTime,$wyjazdPrzebieg,$przyjazdPrzebieg,$pacjent)
+{
+    GLOBAL $conn;
+    $query = "
+    UPDATE `przejazdy`
+     SET 
+     `skad` = '$skad', 
+     `dokad` = '$dokad',
+     `wyjazdTime` = '$wyjazdTime',
+     `przyjazdTime` = '$przyjazdTime',
+     `wyjazdPrzebieg` = '$wyjazdPrzebieg',
+     `przyjazdPrzebieg` = '$przyjazdPrzebieg',
+     `pacjent` = '$pacjent'
+      WHERE `przejazdy`.`id` = $id; 
+    ";
+    $result = mysqli_query( $conn , $query);
+}
 function getPrzejazd($id)
 {
     GLOBAL $conn;
