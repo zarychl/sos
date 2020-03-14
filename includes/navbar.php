@@ -19,9 +19,10 @@
           <i class="fas fa-user-circle fa-fw"></i> Witaj,<strong> <?php echo getUserName($_SESSION['userID']); ?></strong>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-          <a class="dropdown-item" href="#">Ustawienia</a>
+          <a class="dropdown-item" href="/profile.php"><i class="fas fa-user-alt    "></i> Profil</a>
+          <a class="dropdown-item" href="#"><i class="fas fa-wrench    "></i> Ustawienia</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="logout.php" >Wyloguj</a>
+          <a class="dropdown-item" href="/logout.php" ><i class="fas fa-door-open    "></i> Wyloguj</a>
         </div>
       </li>
     </ul>

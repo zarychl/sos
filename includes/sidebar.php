@@ -19,6 +19,40 @@
     <i class="fas fa-fw fa-calendar    "></i>
       <span>Terminarz</span>
     </a>
+    
+    <?php
+    if(getUserAdminLvl($_SESSION['userID']) != 0)
+    {
+      echo '
+      <a class="nav-link collapsed" data-toggle="collapse" href="#collapse2" role="button">
+      <i class="fas fa-car-alt    "></i>
+          <span>Samochody</span>
+          <i class="fas fa-sort-down float-right"></i>
+      </a>
+      <div class="collapse" id="collapse2">
+        <a class="nav-link" href="/kartyDrogowe.php">
+          <span>Wydruk karty drogowej</span>
+        </a>
+      </div>
+      ';
+
+      echo '
+      <a class="nav-link collapsed bg-secondary" data-toggle="collapse" href="#collapseExample" role="button">
+      <i class="fas fa-tools"></i>
+          <span>[ADMIN_MENU]</span>
+          <i class="fas fa-sort-down float-right"></i>
+      </a>
+      <div class="collapse" id="collapseExample">
+        <a class="nav-link" href="/admin/users.php">
+          <span>Użytkownicy</span>
+        </a>
+        <a class="nav-link" href="/admin/log.php">
+          <span>Log</span>
+        </a>
+      </div>
+      ';
+    }
+    ?>
   </li>
 
 </ul>

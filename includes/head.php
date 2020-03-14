@@ -3,6 +3,8 @@ require_once("db.php");
 require_once("functions.php");
 
 mysqli_set_charset($conn,"utf8");
+$arrLocale = array( "pl_PL", "polish_pol" );
+   setlocale(LC_ALL, $arrLocale );
 session_start();
 ?>
 <!DOCTYPE html>
@@ -18,13 +20,13 @@ session_start();
   <title>SOS</title>
 
   <!-- Custom fonts for this template-->
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
   <!-- Page level plugin CSS-->
-  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+  <link href="/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="/css/sb-admin.css" rel="stylesheet">
 
   <script
 			  src="https://code.jquery.com/jquery-3.4.1.min.js"

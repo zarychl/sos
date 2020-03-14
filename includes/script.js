@@ -5,9 +5,16 @@ function closeCardConf(cardid)
         location.href = "przejazdyZamknij.php?idkarty="+cardid;
     }
 }
+function deleteEventConf(id)
+{
+    var result = confirm("Czy napewno chcesz usunąć to wydarzenie ?");
+    if (result) {
+        location.href = "terminarzDelete.php?id="+id;
+    }
+}
 
 $(document).ready(function($) {
-    $(".clickable-row").click(function() {
+    $(document).on('click',".clickable-row", function() {
         window.document.location = $(this).data("href");
     });
 

@@ -19,6 +19,30 @@ function getCar($id)
     }
     return $car;
 }
+
+function getUsedCarsAnytime()
+{
+    GLOBAL $conn;
+    $cars = array();
+    $result = mysqli_query( $conn , "SELECT DISTINCT c.nazwa,c.tablica,c.id FROM karty k INNER JOIN cars c ON c.id = k.car_id;");
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($cars,$row);
+    }
+    return $cars;
+}
+
+function getCarUsedDates($id)
+{
+    $query = "SELECT DISTINCT SUBSTRING(data, 1, 7) AS data FROM karty WHERE car_id = $id;";
+    GLOBAL $conn;
+    $dates = array();
+    $result = mysqli_query( $conn , $query);
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($dates,$row);
+    }
+    return $dates;
+}
+
 function getCardLastLocation($id)
 {
     GLOBAL $conn;
@@ -42,6 +66,16 @@ function getStaff($id)
     $result = mysqli_query( $conn , "SELECT * from users WHERE id = $id;");
     while ($row = mysqli_fetch_assoc($result)) {
         return $row;
+    }
+}
+
+function countUserWyjazdy($id)
+{
+    $query = "SELECT count(*) as ilosc FROM `karty` where zaloga_id1 = $id or zaloga_id2 = $id";
+    GLOBAL $conn;
+    $result = mysqli_query( $conn , $query);
+    while ($row = mysqli_fetch_assoc($result)) {
+        return $row['ilosc'];
     }
 }
 
@@ -260,7 +294,7 @@ function getAllStaff()
 {   
     GLOBAL $conn;
     $staff = array();
-    $result = mysqli_query( $conn , "SELECT `id`,`imie`,`nazwisko`,`ratownik` from users;");
+    $result = mysqli_query( $conn , "SELECT `id`,`imie`,`nazwisko`,`ratownik`, `mail`, `admin_lvl` from users;");
     while ($row = mysqli_fetch_assoc($result)) {
         array_push($staff,$row);
     }
@@ -342,5 +376,42 @@ function isUserLoggedIn()
         return 1;
     else
         return 0;
+}
+
+function getEventsByDay($date)
+{
+    GLOBAL $conn;
+    $events = array();
+    $query = "SELECT * FROM `events` WHERE date = '$date' ORDER BY `time`";
+    $result = mysqli_query( $conn , $query);
+    if(mysqli_num_rows($result) == 0) return 0;
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($events,$row);
+    }
+    return $events;
+}
+
+function addEvent($date, $name, $desc, $time)
+{
+    GLOBAL $conn;
+    $query = "
+    INSERT INTO `events`(`nazwa`, `opis`, `time`, `date`) VALUES ('$name','$desc','$time','$date');
+    ";
+    $result = mysqli_query( $conn , $query);
+
+    if($result)
+        mysqli_query( $conn , "INSERT INTO `log`(`name`, `who`) VALUES ('Dodano event: $name, $date $time',". $_SESSION['userID'] .")");
+}
+
+function deleteEvent($id)
+{
+    GLOBAL $conn;
+    $query = "
+    DELETE FROM `events` WHERE `events`.`id` = $id
+    ";
+    $result = mysqli_query( $conn , $query);
+
+    if($result)
+        mysqli_query( $conn , "INSERT INTO `log`(`name`, `who`) VALUES ('Usunięto event o id: $id',". $_SESSION['userID'] .")");
 }
 ?>
