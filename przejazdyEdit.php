@@ -4,6 +4,19 @@ require_once("includes/head.php");
 if(!isUserLoggedIn())//jeśli użytkownik nie jest zalogowany
   header("Location: login.php");// to wyrzucamy go na stronę logowania
 
+$p = getPrzejazd($_GET['id']);
+if($p['pacjent'] != "")
+{
+  $hasPacjent = 1;
+}
+else $hasPacjent = 0;
+
+$stage = 0;
+if($p['przyjazdPrzebieg'])
+{
+    $stage = 1;
+}
+
 if(isset($_POST['wyjazdGodz']))
 {
     
@@ -18,7 +31,7 @@ if(isset($_POST['wyjazdGodz']))
     {
       $pacjent = $_POST['pacjentName'];
     }
-    if(isset($_POST['przyjazdGodz']))
+    if($stage)
     {
       editPrzejazd($_POST['idPrzejazd'], $skad, $dokad, $time, $time2, $mile, $mile2, $pacjent);
     }
@@ -33,19 +46,6 @@ if(isset($_POST['wyjazdGodz']))
 if(!isset($_GET['id']))
 {
     header("Location: karty.php");
-}
-
-$p = getPrzejazd($_GET['id']);
-if($p['pacjent'] != "")
-{
-  $hasPacjent = 1;
-}
-else $hasPacjent = 0;
-
-$stage = 0;
-if($p['przyjazdPrzebieg'])
-{
-    $stage = 1;
 }
 require_once("includes/navbar.php");
 require_once("includes/sidebar.php");

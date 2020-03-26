@@ -121,7 +121,7 @@ function getPrzejazdyByKarta($karta)
 function hasCardUnfinishedPrzejazd($id)
 {
     GLOBAL $conn;
-    $result = mysqli_query($conn, 'SELECT COUNT(*) FROM `przejazdy` WHERE `idKarty` = '. $id .' AND `przyjazdTime` = "";');
+    $result = mysqli_query($conn, 'SELECT COUNT(*) FROM `przejazdy` WHERE `idKarty` = '. $id .' AND `przyjazdTime` IS NULL;');
     while ($row = mysqli_fetch_assoc($result)) {
         $has = $row['COUNT(*)'];
     }
@@ -157,7 +157,7 @@ function displayTimeDiff($time1H, $time1M, $time2H, $time2M)
 function getCardUnfinishedPrzejazd($id)
 {
     GLOBAL $conn;
-    $result = mysqli_query( $conn , "SELECT * FROM `przejazdy` WHERE `idKarty` = $id AND `przyjazdTime` = '';");
+    $result = mysqli_query( $conn , "SELECT * FROM `przejazdy` WHERE `idKarty` = $id AND `przyjazdTime` IS NULL;");
     while ($row = mysqli_fetch_assoc($result)) {
         $przejazd = $row;
     }
@@ -239,6 +239,23 @@ function firstPrzejazdOnCard($id)
 function editPrzejazd($id,$skad,$dokad,$wyjazdTime,$przyjazdTime,$wyjazdPrzebieg,$przyjazdPrzebieg,$pacjent)
 {
     GLOBAL $conn;
+    if($przyjazdTime == "" && $przyjazdPrzebieg == "")
+    {
+        $query = "
+        UPDATE `przejazdy`
+        SET 
+        `skad` = '$skad', 
+        `dokad` = '$dokad',
+        `wyjazdTime` = '$wyjazdTime',
+        `przyjazdTime` = NULL,
+        `wyjazdPrzebieg` = '$wyjazdPrzebieg',
+        `przyjazdPrzebieg` = NULL,
+        `pacjent` = '$pacjent'
+        WHERE `przejazdy`.`id` = $id; 
+        ";
+    }
+    else
+    {
     $query = "
     UPDATE `przejazdy`
      SET 
@@ -251,6 +268,7 @@ function editPrzejazd($id,$skad,$dokad,$wyjazdTime,$przyjazdTime,$wyjazdPrzebieg
      `pacjent` = '$pacjent'
       WHERE `przejazdy`.`id` = $id; 
     ";
+    }
     $result = mysqli_query( $conn , $query);
 }
 function getPrzejazd($id)

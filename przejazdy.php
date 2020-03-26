@@ -92,7 +92,8 @@ require_once("includes/sidebar.php");
                 <tr>
                 <th scope="row">Załoga:</th>
                 <td><?php
-                echo $staff1['nazwisko']. " ". $staff1['imie'] ; 
+                if(!empty($staff1))
+                  echo $staff1['nazwisko']. " ". $staff1['imie'] ; 
                 if(isset($staff2))
                 echo ", " . $staff2['nazwisko']. " ". $staff2['imie'] ; 
                 ?></td>

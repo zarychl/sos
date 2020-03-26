@@ -48,7 +48,8 @@ require_once("includes/sidebar.php");
                         echo '<td>'. $cards[$key]['przychodnia'] . ", " . $cards[$key]['lekarz'] .'</td>';
                         echo '<td>'. $cards[$key]['nazwa'] . " [" . $cards[$key]['tablica']. ']</td>';
                         echo '<td>';
-                        echo $staff1['nazwisko']. " " . $staff1['imie'];
+                        if(!empty($staff1))
+                          echo $staff1['nazwisko']. " " . $staff1['imie'];
                         if($cards[$key]['zaloga_id2'] != -1)
                             echo ", ".$staff2['nazwisko']. " " . $staff2['imie'];
                         echo '</td>';
