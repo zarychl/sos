@@ -166,7 +166,7 @@ if(isset($_GET['idkarty']))
                     </td>
                 </tr>
             </table>
-
+<br>
             <table style="display: inline-block;font-size:14pt;margin-top:50px;margin-left:50px;">
                 <tr>
                     <th style="font-weight:bold">
@@ -175,7 +175,7 @@ if(isset($_GET['idkarty']))
                 </tr>
                 <tr>
                     <td style="font-size:14pt;">
-                    <?php echo $staff1['nazwisko'] . " " . $staff1['imie']; ?>
+                    <?php if(!empty($staff1)) echo $staff1['nazwisko'] . " " . $staff1['imie']; ?>
                     </td>
                 </tr>
                 <tr>

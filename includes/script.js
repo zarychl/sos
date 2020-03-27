@@ -17,7 +17,15 @@ $(document).ready(function($) {
     $(document).on('click',".clickable-row", function() {
         window.document.location = $(this).data("href");
     });
-
+    $(document).on('click',"#terminarzGlowna", function() {
+        var today = new Date();
+        var month = today.getMonth()*1;
+        month++;
+        if(month < 10)
+            month = "0" + month;
+        window.document.location = "terminarzDay.php?date=" + today.getFullYear() + "-" + month + "-" +  today.getDate();
+        
+    });
     $(".fill-dysponent").click(function() {
         $('#przychodnia').val($(this).data("name"));
         $('#przychodnia').attr('readonly','readonly');

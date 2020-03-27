@@ -30,6 +30,9 @@
           <i class="fas fa-sort-down float-right"></i>
       </a>
       <div class="collapse" id="collapse2">
+      <a class="nav-link" href="/admin/cars.php">
+          <span>Przeglądaj</span>
+        </a>
         <a class="nav-link" href="/kartyDrogowe.php">
           <span>Wydruk karty drogowej</span>
         </a>

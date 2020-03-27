@@ -1,4 +1,9 @@
 <?php
+define("OIL_ALERT_DAYS", 7);
+define("OIL_ALERT_KM", 1000);
+define("UBEZ_ALERT_DAYS", 7);
+define("PRZEGLAD_ALERT_DAYS", 7);
+
 function getAllCars()
 {   
     GLOBAL $conn;
@@ -9,7 +14,6 @@ function getAllCars()
     }
     return $cars;
 }
-
 function getCar($id)
 {
     GLOBAL $conn;
@@ -18,6 +22,39 @@ function getCar($id)
         $car = $row;
     }
     return $car;
+}
+function getCarsKonczaceSie()
+{
+    GLOBAL $conn;
+    $rzeczy = array();
+    $result = mysqli_query( $conn , "SELECT count(*) as 'count' FROM `cars` where `olejDoKm` - `przebieg` < ". OIL_ALERT_KM .";");
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rzeczy['o_km'] = $row['count'];
+    }
+
+    $result = mysqli_query( $conn , "SELECT count(*) as 'count' from cars where DATEDIFF(olejDo,CURDATE()) < ". OIL_ALERT_DAYS .";");
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rzeczy['o'] = $row['count'];
+    }
+
+    $result = mysqli_query( $conn , "SELECT count(*) as 'count' from cars where DATEDIFF(przegladDo,CURDATE()) < ". PRZEGLAD_ALERT_DAYS .";");
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rzeczy['p'] = $row['count'];
+    }
+
+    $result = mysqli_query( $conn , "SELECT count(*) as 'count' from cars where DATEDIFF(ubezDo,CURDATE()) < ". UBEZ_ALERT_DAYS .";");
+    while ($row = mysqli_fetch_assoc($result)) {
+        $rzeczy['u'] = $row['count'];
+    }
+    return $rzeczy;
+}
+function getOilMileageLeft($carid)
+{
+    $car = getCar($carid);
+    if(isset($car['olejDoKm']))
+        return $car['olejDoKm'] - $car['przebieg'];
+    else
+        return "err";
 }
 
 function getUsedCarsAnytime()
@@ -306,6 +343,33 @@ function initPrzejazd($id,$skad,$dokad, $time, $mileage, $pacjent = 0)
         $result = mysqli_query( $conn , "INSERT INTO `przejazdy` (`idKarty`, `skad`, `dokad`, `wyjazdTime`, `WyjazdPrzebieg`, `pacjent`) VALUES ('$id','$skad','$dokad','$time','$mileage', '$pacjent')");
 
     return 1;
+}
+function daysToOilReplace($carid)
+{
+    $car = getCar($carid);
+    if(!empty($car['olejDo']))
+    {
+        $date1 = strtotime($car['olejDo']);
+        $now = strtotime("now");
+        return ceil(($date1 - $now)/(3600*24));
+    }
+    else return "err";
+
+}
+function getTodayEvents()
+{
+    GLOBAL $conn;
+    $today = date('Y-m-d');
+    $events = array();
+    $result = mysqli_query( $conn , "SELECT * FROM `events` where date = '$today';");
+    
+    if(mysqli_num_rows($result) == 0) return 0;
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        array_push($events,$row);
+    }
+
+    return $events;
 }
 
 function getAllStaff()
